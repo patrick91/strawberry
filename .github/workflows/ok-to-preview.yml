@@ -26,12 +26,11 @@ jobs:
     #     format: 'json'
     - name: Get comment content
       run: |
-        import os
-        from pathlib import Path
+        import os, json
 
-        all_files = Path(os.environ["HOME"]) / "files.json"
+        all_files = os.path.join(os.environ["HOME"], "files.json")
 
-        with all_files.open() as f:
+        with open(all_files) as f:
             print(f.read())
 
       shell: python
