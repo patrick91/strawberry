@@ -9,12 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: Debug
-      id: debug
-      uses: hmarr/debug-action@master
-      with:
-        app_id: ${{ secrets.APP_ID }}
-        private_key: ${{ secrets.PRIVATE_KEY }}
+    # - name: Debug
+    #   id: debug
+    #   uses: hmarr/debug-action@master
+    #   with:
+    #     app_id: ${{ secrets.APP_ID }}
+    #     private_key: ${{ secrets.PRIVATE_KEY }}
+
+    - uses: lots0logs/gh-action-get-changed-files@2.1.4
 
     - id: files
       uses: jitterbit/get-changed-files@v1
