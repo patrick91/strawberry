@@ -49,7 +49,7 @@ jobs:
           if file.startswith("docs/") and file.endswith(".md")
         ]
 
-        links = json.dumps(links).encode("string_escape")
+        links = json.dumps(links)
         output = "::set-output name=links::{}".format(links)
 
         print(output)
