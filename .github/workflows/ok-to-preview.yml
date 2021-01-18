@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    # - name: Debug
-    #   id: debug
-    #   uses: hmarr/debug-action@master
-    #   with:
-    #     app_id: ${{ secrets.APP_ID }}
-    #     private_key: ${{ secrets.PRIVATE_KEY }}
+    - name: Debug
+      id: debug
+      uses: hmarr/debug-action@master
+      with:
+        app_id: ${{ secrets.APP_ID }}
+        private_key: ${{ secrets.PRIVATE_KEY }}
 
     - uses: lots0logs/gh-action-get-changed-files@2.1.4
       with:
@@ -40,7 +40,7 @@ jobs:
         """).strip()
 
         links = [
-          "https://strawberry.rocks/docs/pr/{pr_number}/{path}".format(
+          "- https://strawberry.rocks/docs/pr/{pr_number}/{path}".format(
             pr_number=123,
             path=file.replace(".md", "")
           )
