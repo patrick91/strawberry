@@ -24,7 +24,14 @@ jobs:
     #   uses: jitterbit/get-changed-files@v1
     #   with:
     #     format: 'json'
-    - run: |
-        echo $(pwd)
-        ls
-        python scripts/ok_to_preview.py
+    - name: Get comment content
+      run: |
+        import os
+        from pathlib import Path
+
+        all_files = Path(os.environ["HOME"]) / "files.json"
+
+        with all_files.open() as f:
+            print(f.read())
+
+      shell: python
