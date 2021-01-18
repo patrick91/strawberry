@@ -30,9 +30,13 @@ jobs:
         import os, json, textwrap
 
         all_files_path = os.path.join(os.environ["HOME"], "files.json")
+        event_json_path = os.environ["GITHUB_EVENT_PATH"]
 
         with open(all_files_path) as f:
             all_files = json.load(f)
+
+        with open(event_json_path) as f:
+            event_data = json.load(f)
 
         template = textwrap.dedent("""
         Hi 👋 You can find a preview of the docs here:
@@ -41,7 +45,7 @@ jobs:
 
         links = [
           "- https://strawberry.rocks/docs/pr/{pr_number}/{path}".format(
-            pr_number=123,
+            pr_number=event_data["number"],
             path=file.replace(".md", "")
           )
           for file in all_files
