@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: Debug
-      id: debug
-      uses: hmarr/debug-action@master
-      with:
-        app_id: ${{ secrets.APP_ID }}
-        private_key: ${{ secrets.PRIVATE_KEY }}
+    # - name: Debug
+    #   id: debug
+    #   uses: hmarr/debug-action@master
+    #   with:
+    #     app_id: ${{ secrets.APP_ID }}
+    #     private_key: ${{ secrets.PRIVATE_KEY }}
 
     - uses: lots0logs/gh-action-get-changed-files@2.1.4
       with:
@@ -67,7 +67,7 @@ jobs:
       id: add-comment
       env:
         number: ${{ github.event.number }}
-        links: ${{ steps.links_list.outputs.links }}"
+        links: ${{ steps.links_list.outputs.links }}
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
