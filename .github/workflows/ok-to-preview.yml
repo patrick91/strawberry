@@ -24,8 +24,9 @@ jobs:
     #   uses: jitterbit/get-changed-files@v1
     #   with:
     #     format: 'json'
-    - name: Get comment content
-      id: comment
+
+    - name: Get list of links
+      id: links_list
       run: |
         # -*- coding: utf-8 -*-
         import os, json, textwrap
@@ -39,13 +40,8 @@ jobs:
         with open(event_json_path) as f:
             event_data = json.load(f)
 
-        template = textwrap.dedent("""
-        Hi 👋 You can find a preview of the docs here:
-        REPLACE_ME
-        """).strip()
-
         links = [
-          "- https://strawberry.rocks/docs/pr/{pr_number}/{path}".format(
+          "https://strawberry.rocks/docs/pr/{pr_number}/{path}".format(
             pr_number=event_data["number"],
             path=file.replace(".md", "")
           )
@@ -53,16 +49,35 @@ jobs:
           if file.startswith("docs/") and file.endswith(".md")
         ]
 
-        comment = template.replace("REPLACE_ME", "\n".join(links)).encode("string_escape")
-        output = "::set-output name=message::{}".format(comment)
+        links = json.dumps(links).encode("string_escape")
+        output = "::set-output name=links::{}".format(links)
 
         print(output)
       shell: python
 
-    - name: Add comment to PR
-      uses: unsplash/comment-on-pr@master
+    # - name: Add comment to PR
+    #   uses: unsplash/comment-on-pr@master
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     msg: ${{ steps.comment.outputs.message }}
+    #     check_for_duplicate_msg: true
+
+    - uses: actions/github-script@v1
+      id: add-comment
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        number: ${{ github.event.number }}
+        links: ${{ steps.links_list.outputs.links }}"
       with:
-        msg: ${{ steps.comment.outputs.message }}
-        check_for_duplicate_msg: true
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const links = JSON.parse(process.env.links).join('\n')
+          const message = `
+            Hi 👋 You can find a preview of the docs here: \n${links}
+          `.trim()
+          await github.issues.createComment({
+            issue_number: process.env.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: message
+          })
