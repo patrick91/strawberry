@@ -53,9 +53,10 @@ jobs:
           if file.startswith("docs/") and file.endswith(".md")
         ]
 
-        comment = template.replace("REPLACE_ME", "\n".join(links))
+        comment = template.replace("REPLACE_ME", "\n".join(links)).encode("string_escape")
+        output = "::set-output name=message::{}".format(comment)
 
-        print("::set-output name=message::{}".format(comment.encode('string_escape'))
+        print(output)
       shell: python
 
     - name: Add comment to PR
