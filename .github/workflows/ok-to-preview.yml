@@ -17,6 +17,8 @@ jobs:
     #     private_key: ${{ secrets.PRIVATE_KEY }}
 
     - uses: lots0logs/gh-action-get-changed-files@2.1.4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - id: files
       uses: jitterbit/get-changed-files@v1
