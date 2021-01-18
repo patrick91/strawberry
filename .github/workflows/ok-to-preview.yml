@@ -25,6 +25,7 @@ jobs:
     #   with:
     #     format: 'json'
     - name: Get comment content
+      id: comment
       run: |
         # -*- coding: utf-8 -*-
         import os, json, textwrap
@@ -54,7 +55,7 @@ jobs:
 
         comment = template.replace("REPLACE_ME", "\n".join(links))
 
-        print(comment)
+        print("::set-output name=message::{}".format(comment.encode('string_escape'))
       shell: python
 
     - name: Add comment to PR
@@ -62,5 +63,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        msg: "Check out this message!"
+        msg: ${{ steps.comment.outputs.message }}
         check_for_duplicate_msg: true
