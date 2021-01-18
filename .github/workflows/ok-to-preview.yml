@@ -71,7 +71,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const links = JSON.parse(process.env.links).map(l => `- ${l}`)join('\n')
+          const links = JSON.parse(process.env.links).map(l => `- ${l}`).join('\n')
           const message = `
             Hi 👋  You can find a preview of the docs here: \n\n${links}
           `.trim()
