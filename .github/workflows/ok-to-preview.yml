@@ -20,9 +20,11 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
-    - id: files
-      uses: jitterbit/get-changed-files@v1
-      with:
-        format: 'json'
+    # - id: files
+    #   uses: jitterbit/get-changed-files@v1
+    #   with:
+    #     format: 'json'
+    # - run: |
+    #     echo '${{ steps.files.outputs.all }}' | python scripts/ok_to_preview.py
     - run: |
-        echo '${{ steps.files.outputs.all }}' | python scripts/ok_to_preview.py
+        cat ${HOME}/files.json
