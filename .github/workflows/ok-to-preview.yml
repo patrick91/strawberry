@@ -6,6 +6,7 @@ on:
 
 jobs:
   ok-to-preview:
+    if: ${{ github.event.label.name == 'ok-to-preview' }}
     runs-on: ubuntu-latest
     steps:
 
@@ -19,11 +20,6 @@ jobs:
     - uses: lots0logs/gh-action-get-changed-files@2.1.4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-
-    # - id: files
-    #   uses: jitterbit/get-changed-files@v1
-    #   with:
-    #     format: 'json'
 
     - name: Get list of links
       id: links_list
@@ -54,14 +50,6 @@ jobs:
 
         print(output)
       shell: python
-
-    # - name: Add comment to PR
-    #   uses: unsplash/comment-on-pr@master
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     msg: ${{ steps.comment.outputs.message }}
-    #     check_for_duplicate_msg: true
 
     - uses: actions/github-script@v1
       id: add-comment
