@@ -26,4 +26,5 @@ jobs:
     #     format: 'json'
     - run: |
         echo $(pwd)
+        ls
         python scripts/ok_to_preview.py
