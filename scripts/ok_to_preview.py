@@ -1,5 +1,8 @@
-import sys
+import os
+from pathlib import Path
 
 
-for line in sys.stdin:
-    sys.stdout.write(line)
+all_files = Path(os.environ["HOME"]) / "files.json"
+
+with all_files.open() as f:
+    print(f.read())

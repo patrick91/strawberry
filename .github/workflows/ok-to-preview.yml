@@ -24,7 +24,5 @@ jobs:
     #   uses: jitterbit/get-changed-files@v1
     #   with:
     #     format: 'json'
-    # - run: |
-    #     echo '${{ steps.files.outputs.all }}' | python scripts/ok_to_preview.py
     - run: |
-        cat ${HOME}/files.json
+        python scripts/ok_to_preview.py
