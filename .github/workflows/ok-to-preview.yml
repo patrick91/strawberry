@@ -11,7 +11,7 @@ jobs:
 
     - name: Debug
       id: debug
-      uses: hmarr/debug-action
+      uses: hmarr/debug-action@master
       with:
         app_id: ${{ secrets.APP_ID }}
         private_key: ${{ secrets.PRIVATE_KEY }}
