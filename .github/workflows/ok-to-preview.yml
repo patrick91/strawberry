@@ -37,7 +37,7 @@ jobs:
         template = textwrap.dedent("""
         Hi 👋 You can find a preview of the docs here:
         REPLACE_ME
-        """").strip()
+        """).strip()
 
         links = [
           "https://strawberry.rocks/docs/pr/{pr_number}/{path}".format({
