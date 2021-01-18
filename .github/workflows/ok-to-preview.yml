@@ -26,6 +26,7 @@ jobs:
     #     format: 'json'
     - name: Get comment content
       run: |
+        # -*- coding: utf-8 -*-
         import os, json, textwrap
 
         all_files_path = os.path.join(os.environ["HOME"], "files.json")
